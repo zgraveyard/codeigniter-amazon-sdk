@@ -1,6 +1,6 @@
 # Amazon AWS SDK for php 
 
-This has been inspired from [http://s.zah.me/AlzyHg] Kohana-aws-sdk.
+This has been inspired from [Kohana-aws-sdk](http://s.zah.me/AlzyHg).
 
 It has the full amazon sdk for php.
 
@@ -19,6 +19,11 @@ It has the full amazon sdk for php.
 * The ability to read from and write to the file system via file_get_contents() and file_put_contents().
 * If you're not sure whether your PHP environment meets these requirements, run the SDK Compatibility Test script included in the SDK download.
 
+## Installation
+
+* Remember to copy the config/storage.php file to your config directory and fill out your aws information.
+
+
 ## Information :
 
-* For more information about the AWS SDK for PHP, including a complete list of supported services, see [http://aws.amazon.com/sdkforphp]aws.amazon.com/sdkforphp.
+* For more information about the AWS SDK for PHP, including a complete list of supported services, see [aws.amazon.com/sdkforphp](http://aws.amazon.com/sdkforphp).
