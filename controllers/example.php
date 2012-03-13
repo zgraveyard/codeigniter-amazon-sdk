@@ -7,7 +7,7 @@ class Example extends CI_Controller{
 	}
 
 	public function index(){
-		$this->load->spark('amazon-sdk/0.1.0');
+		$this->load->spark('amazon-sdk/0.1.1');
 		$s3 = $this->awslib->get_s3();
 		$result = $s3->list_buckets();
 		echo '<pre>' . print_r($result, TRUE) . '</pre>';

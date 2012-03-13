@@ -1,4 +1,4 @@
 name: amazon-sdk
-version: 0.1.0
+version: 0.1.1
 compatibility: 2.1.x
 tags: ["amazon cloud", "s3", "cloud front"]
