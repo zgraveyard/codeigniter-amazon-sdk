@@ -27,14 +27,10 @@ It has the full amazon sdk for php.
 * Copy the config/storage.php file to your config directory and fill out your aws.
 * Load the spark as usual:
 ```
-
-		$this->load->spark('amazon-sdk/0.1.1');
-
-		$s3 = $this->awslib->get_s3();
-		
-		$result = $s3->list_buckets();
-		
-		echo '<pre>' . print_r($result, TRUE) . '</pre>';
+$this->load->spark('amazon-sdk/0.1.1');
+$s3 = $this->awslib->get_s3();
+$result = $s3->list_buckets();
+echo '<pre>' . print_r($result, TRUE) . '</pre>';
 ```
 
 ## Information :
