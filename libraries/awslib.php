@@ -32,6 +32,11 @@ class Awslib {
 	{
 		return new AmazonCloudWatch();
 	}
+	
+	public function get_dynamodb()
+	{
+		return new AmazonDynamoDB();
+	}
 
 	public function get_ec2()
 	{
