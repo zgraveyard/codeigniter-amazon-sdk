@@ -26,14 +26,12 @@ It has the full amazon sdk for php.
 ## Usage:
 * Copy the config/storage.php file to your config directory and fill out your aws.
 * Load the spark as usual:
+
 ```php
-
-	<?php
-		$this->load->spark('amazon-sdk/0.1.2');
-		$s3 = $this->awslib->get_s3();
-		$result = $s3->list_buckets();
-		echo '<pre>' . print_r($result, TRUE) . '</pre>';
-
+	$this->load->spark('amazon-sdk/x.x.x');
+	$s3 = $this->awslib->get_s3();
+	$result = $s3->list_buckets();
+	echo '<pre>' . print_r($result, TRUE) . '</pre>';
 ```
 
 ## Information :
@@ -45,3 +43,4 @@ It has the full amazon sdk for php.
 * [25/04/2012] : updated SDK to version 1.5.4
 * [05/05/2012] : adding dynamicDB function
 * [14/05/2012] : update SDK to verion 1.5.5
+* [21/05/2012] : update SDK to version 1.5.6
