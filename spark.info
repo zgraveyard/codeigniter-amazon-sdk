@@ -2,6 +2,6 @@ name: amazon-sdk
 
 version: 0.1.6
 
-compatibility: 2.1.x
+compatibility: 2.1.0
 
 tags: ["amazon sdk", "s3", "ec2", "ses"]
