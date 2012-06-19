@@ -45,3 +45,4 @@ It has the full amazon sdk for php.
 * [14/05/2012] : update SDK to verion 1.5.5
 * [21/05/2012] : update SDK to version 1.5.6
 * [16/06/2012] : update SDK to version 1.5.7
+* [19/06/2012] : small fix to the way that the config is loaded, and change the name of the file to awslib.
