@@ -5,12 +5,12 @@ require_once  dirname(__FILE__) . '/aws-sdk-for-php/sdk.class.php';
 class Awslib {
 
 	protected $_CI;
-	protected $_config;
+	//protected $_config;
 
-	public function __construct(){
+	public function __construct($config = array()){
 		$this->_CI =& get_instance();
-		$this->_config = $this->_CI->config->item('storage');
-		CFCredentials::set($this->_config);		
+		//$this->_config = $this->_CI->config->item('storage');
+		CFCredentials::set($config);		
 	}
 
 	public function get_as()
