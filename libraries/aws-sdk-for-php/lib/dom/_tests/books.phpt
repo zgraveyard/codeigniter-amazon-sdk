@@ -3,7 +3,7 @@ Create books XML from array.
 
 --FILE--
 <?php
-require_once '../ArrayToDOMDocument.php';
+require_once '../Transmogrifier.php';
 
 $data = array(
 	'book' => array(
@@ -29,7 +29,7 @@ $data = array(
 	)
 );
 
-echo Array2DOM::arrayToXMLString($data);
+echo Transmogrifier::to_xml($data);
 ?>
 
 --EXPECT--

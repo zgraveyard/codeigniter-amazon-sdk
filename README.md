@@ -21,7 +21,8 @@ It has the full amazon sdk for php.
 
 ## Installation
 
-* Remember to copy the config/storage.php file to your config directory and fill out your aws.information.
+* Remember to copy the config/awslib.php file to your config directory and fill out your aws.information.
+* you can leave it at the spark/amazon-sdk/xxx/config directory.
 
 ## Usage:
 * Copy the config/storage.php file to your config directory and fill out your aws.
@@ -46,3 +47,4 @@ It has the full amazon sdk for php.
 * [21/05/2012] : update SDK to version 1.5.6
 * [16/06/2012] : update SDK to version 1.5.7
 * [19/06/2012] : small fix to the way that the config is loaded, and change the name of the file to awslib.
+* [19/08/2012] : updated SDK to version [1.5.11](https://aws.amazon.com/releasenotes/PHP/2692509814768496) , and fix a bug in the config file.

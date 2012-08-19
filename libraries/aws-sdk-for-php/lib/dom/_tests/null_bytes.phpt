@@ -3,7 +3,7 @@ Encode NULL bytes in XML strings.
 
 --FILE--
 <?php
-require_once '../ArrayToDOMDocument.php';
+require_once '../Transmogrifier.php';
 
 class Dummy
 {
@@ -17,11 +17,11 @@ $data = array(
 	'dummy' => $serialized_dummy
 );
 
-echo Array2DOM::arrayToXMLString($data);
+echo Transmogrifier::to_xml($data);
 ?>
 
 --EXPECT--
 <?xml version="1.0"?>
 <root>
-  <dummy><![CDATA[json_encoded::"O:5:\"Dummy\":1:{s:11:\"\u0000Dummy\u0000prop\";s:8:\"property\";}"]]></dummy>
+  <dummy encoded="json"><![CDATA[json_encoded::"O:5:\"Dummy\":1:{s:11:\"\u0000Dummy\u0000prop\";s:8:\"property\";}"]]></dummy>
 </root>

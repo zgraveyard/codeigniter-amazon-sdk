@@ -3,7 +3,7 @@ Array of hashes where hashes are strings.
 
 --FILE--
 <?php
-require_once '../ArrayToDOMDocument.php';
+require_once '../Transmogrifier.php';
 
 $data = json_decode('{
   "ConsumedCapacityUnits": 0.5,
@@ -26,20 +26,21 @@ $data = json_decode('{
   ],
   "ScannedCount": 2
 }', true);
-echo Array2DOM::arrayToXMLString($data);
+
+echo Transmogrifier::to_xml($data);
 ?>
 
 --EXPECT--
 <?xml version="1.0"?>
 <root>
-  <ConsumedCapacityUnits><![CDATA[0.5]]></ConsumedCapacityUnits>
-  <Count><![CDATA[2]]></Count>
+  <ConsumedCapacityUnits>0.5</ConsumedCapacityUnits>
+  <Count>2</Count>
   <Items>
     <a5>
       <S><![CDATA[value2]]></S>
     </a5>
     <a2>
-      <N><![CDATA[2]]></N>
+      <N>2</N>
     </a2>
     <a1>
       <S><![CDATA[key2]]></S>
@@ -48,5 +49,5 @@ echo Array2DOM::arrayToXMLString($data);
       <S><![CDATA[value12]]></S>
     </a4>
   </Items>
-  <ScannedCount><![CDATA[2]]></ScannedCount>
+  <ScannedCount>2</ScannedCount>
 </root>

@@ -3,7 +3,7 @@ Use multiple nodes with identical names as children of <root>.
 
 --FILE--
 <?php
-require_once '../ArrayToDOMDocument.php';
+require_once '../Transmogrifier.php';
 
 $data = array(
 	'domainInfos' => array(
@@ -18,7 +18,7 @@ $data = array(
 	)
 );
 
-echo Array2DOM::arrayToXMLString($data);
+echo Transmogrifier::to_xml($data);
 ?>
 
 --EXPECT--
