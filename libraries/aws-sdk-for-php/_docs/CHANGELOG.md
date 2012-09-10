@@ -1,3 +1,52 @@
+# Changelog: 1.5.14 "Panther"
+Code name for Mac OS X 10.3. <http://en.wikipedia.org/wiki/Mac_OS_X_v10.3>
+
+Launched Wednesday. August 31, 2012.
+
+## Services
+### Amazon S3
+* **New:** Support for Cross-Origin Resource Sharing (CORS) configuration on buckets
+
+----
+
+# Changelog: 1.5.13 "Ninja"
+Code name for Claris FileMaker Pro. <http://en.wikipedia.org/wiki/FileMaker_Pro>
+
+Launched Friday, August 24, 2012.
+
+## Services
+### AmazonCloudFormation
+* **New:** Cost Allocation Tagging.
+
+### AmazonRDS
+* **New:** RDS instances running in VPC.
+* **New:** Support for forced failover features for Oracle and MySQL, as well as additional features for Oracle.
+* **New:** Microsoft SQL Server support.
+* **New:** Read Replicas for MySQL instances in Amazon VPC.
+* **New:** Support for option groups. The option to be supported with this release is Oracle Enterprise Management Database Control.
+* **New:** MySQL support for `db.t1.micro` DB instances.
+* **New:** Microsoft SQL Server support for the Database Engine Tuning Advisor.
+* **New:** Cost Allocation Tagging.
+* **New:** SQL Server Agent support.
+* **New:** Request signing with Signature V4.
+
+### AmazonS3
+* **New:** Cost Allocation Tagging
+
+----
+
+# Changelog: 1.5.12 "Marklar"
+Code name for Mac OS X for Intel architecture. <http://en.wikipedia.org/wiki/Mac_OS_X#Apple.E2.80.93Intel_transition>
+
+Launched Tuesday, August 21, 2012.
+
+## Services
+### AmazonDynamoDB
+* Support for binary data types has been added to the SDK.
+
+
+----
+
 # Changelog: 1.5.11 "Leopard"
 Code name for Mac OS X 10.5. <http://en.wikipedia.org/wiki/Mac_OS_X_v10.5>
 

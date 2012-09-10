@@ -1,46 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2e19ff0d-93a6-4ede-a01e-3a9bfa047b76" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\xampp\htdocs\codeigniter-amazon-sdk\config\storage.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/_docs/CHANGELOG.md" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/_docs/CHANGELOG.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/books.phpt" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/books.phpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/different_root_nodes.phpt" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/different_root_nodes.phpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/empty_inner.phpt" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/empty_inner.phpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/empty_outer.phpt" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/empty_outer.phpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/list_of_hashes.phpt" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/list_of_hashes.phpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/list_of_hashes2.phpt" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/list_of_hashes2.phpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/null_bytes.phpt" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/null_bytes.phpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/same_root_nodes.phpt" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/same_root_nodes.phpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/simple.phpt" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/_tests/simple.phpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/example.php" afterPath="$PROJECT_DIR$/controllers/example.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/README.md" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/_samples/html-dynamodb_sessions_login.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/_samples/html-dynamodb_sessions_login.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/authentication/signature_v4json.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/authentication/signature_v4json.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/authentication/signature_v4query.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/authentication/signature_v4query.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/ArrayToDOMDocument.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/dom/ArrayToDOMDocument.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/requestcore/requestcore.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/lib/requestcore/requestcore.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/sdk.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/sdk.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/as.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/as.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/cloudwatch.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/cloudwatch.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/dynamodb.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/dynamodb.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/ec2.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/ec2.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/elasticbeanstalk.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/elasticbeanstalk.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/elb.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/elb.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/s3.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/s3.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/ses.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/ses.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/sts.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/services/sts.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/credentials.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/credentials.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/hadoopbase.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/hadoopbase.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/hadoopbootstrap.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/hadoopbootstrap.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/hadoopstep.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/hadoopstep.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/json.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/json.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/response.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/response.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/simplexml.class.php" afterPath="$PROJECT_DIR$/libraries/aws-sdk-for-php/utilities/simplexml.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/awslib.php" afterPath="$PROJECT_DIR$/libraries/awslib.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spark.info" afterPath="$PROJECT_DIR$/spark.info" />
-    </list>
+    <list default="true" id="2e19ff0d-93a6-4ede-a01e-3a9bfa047b76" name="Default" comment="" />
     <ignored path="codeigniter-amazon-sdk.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />

@@ -49,7 +49,7 @@ class S3_Exception extends Exception {}
  *
  * Visit <http://aws.amazon.com/s3/> for more information.
  *
- * @version 2012.06.18
+ * @version 2012.08.28
  * @license See the included NOTICE.md file for more information.
  * @copyright See the included NOTICE.md file for more information.
  * @link http://aws.amazon.com/s3/ Amazon Simple Storage Service
@@ -405,6 +405,11 @@ class AmazonS3 extends CFRuntime
 	public $object_expiration_xml;
 
 	/**
+	 * The base XML elements to use for CORS support.
+	 */
+	public $cors_config_xml;
+
+	/**
 	 * The DNS vs. Path-style setting.
 	 */
 	public $path_style = false;
@@ -436,15 +441,17 @@ class AmazonS3 extends CFRuntime
 		$this->api_version = '2006-03-01';
 		$this->hostname = self::DEFAULT_URL;
 
-		$this->base_acp_xml             = '<?xml version="1.0" encoding="UTF-8"?><AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/latest/"></AccessControlPolicy>';
-		$this->base_location_constraint = '<?xml version="1.0" encoding="UTF-8"?><CreateBucketConfiguration xmlns="http://s3.amazonaws.com/doc/' . $this->api_version . '/"><LocationConstraint></LocationConstraint></CreateBucketConfiguration>';
-		$this->base_logging_xml         = '<?xml version="1.0" encoding="utf-8"?><BucketLoggingStatus xmlns="http://doc.s3.amazonaws.com/' . $this->api_version . '"></BucketLoggingStatus>';
-		$this->base_notification_xml    = '<?xml version="1.0" encoding="utf-8"?><NotificationConfiguration></NotificationConfiguration>';
-		$this->base_versioning_xml      = '<?xml version="1.0" encoding="utf-8"?><VersioningConfiguration xmlns="http://s3.amazonaws.com/doc/' . $this->api_version . '/"></VersioningConfiguration>';
-		$this->complete_mpu_xml         = '<?xml version="1.0" encoding="utf-8"?><CompleteMultipartUpload></CompleteMultipartUpload>';
+		$this->base_acp_xml             = '<?xml version="1.0" encoding="UTF-8"?><AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/latest/"/>';
+		$this->base_location_constraint = '<?xml version="1.0" encoding="UTF-8"?><CreateBucketConfiguration xmlns="http://s3.amazonaws.com/doc/' . $this->api_version . '/"><LocationConstraint/></CreateBucketConfiguration>';
+		$this->base_logging_xml         = '<?xml version="1.0" encoding="utf-8"?><BucketLoggingStatus xmlns="http://doc.s3.amazonaws.com/' . $this->api_version . '"/>';
+		$this->base_notification_xml    = '<?xml version="1.0" encoding="utf-8"?><NotificationConfiguration/>';
+		$this->base_versioning_xml      = '<?xml version="1.0" encoding="utf-8"?><VersioningConfiguration xmlns="http://s3.amazonaws.com/doc/' . $this->api_version . '/"/>';
+		$this->complete_mpu_xml         = '<?xml version="1.0" encoding="utf-8"?><CompleteMultipartUpload/>';
 		$this->website_config_xml       = '<?xml version="1.0" encoding="utf-8"?><WebsiteConfiguration xmlns="http://s3.amazonaws.com/doc/' . $this->api_version . '/"><IndexDocument><Suffix>index.html</Suffix></IndexDocument><ErrorDocument><Key>error.html</Key></ErrorDocument></WebsiteConfiguration>';
-		$this->multi_object_delete_xml  = '<?xml version="1.0" encoding="utf-8"?><Delete></Delete>';
-		$this->object_expiration_xml    = '<?xml version="1.0" encoding="utf-8"?><LifecycleConfiguration></LifecycleConfiguration>';
+		$this->multi_object_delete_xml  = '<?xml version="1.0" encoding="utf-8"?><Delete/>';
+		$this->object_expiration_xml    = '<?xml version="1.0" encoding="utf-8"?><LifecycleConfiguration/>';
+		$this->bucket_tagging_xml       = '<?xml version="1.0" encoding="utf-8"?><Tagging><TagSet/></Tagging>';
+		$this->cors_config_xml          = '<?xml version="1.0" encoding="utf-8"?><CORSConfiguration />';
 
 		parent::__construct($options);
 	}
@@ -4055,6 +4062,204 @@ class AmazonS3 extends CFRuntime
 		if (!$opt) $opt = array();
 		$opt['verb'] = 'DELETE';
 		$opt['sub_resource'] = 'lifecycle';
+
+		// Authenticate to S3
+		return $this->authenticate($bucket, $opt);
+	}
+
+
+	/*%******************************************************************************************%*/
+	// BUCKET TAGS
+
+	/**
+	 * Apply a set of tags to the specified bucket. Bucket Tags simplify the task of associating Amazon S3
+	 * costs with specific buckets.
+	 *
+	 * This operation requires permission to perform <code>s3:PutBucketTagging</code> actions. By default,
+	 * the bucket owner is permitted to perform these actions, and can grant permission to other users.
+	 *
+	 * @param string $bucket (Required) The name of the bucket to use.
+	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
+	 * 	<li><code>tags</code> - <code>array</code> - Required - An associative array of custom key-value pairs. <ul>
+	 * 		<li><code>[custom-key]</code> - <code>string</code> - Optional - A custom key-value pair to tag the bucket with.</li>
+	 * 	</ul></li>
+	 * 	<li><code>curlopts</code> - <code>array</code> - Optional - A set of values to pass directly into <code>curl_setopt()</code>, where the key is a pre-defined <code>CURLOPT_*</code> constant.</li>
+	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
+	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
+	 */
+	public function create_bucket_tags($bucket, $opt = null)
+	{
+		if (!$opt) $opt = array();
+		$opt['verb'] = 'PUT';
+		$opt['sub_resource'] = 'tagging';
+
+		$xml = simplexml_load_string($this->bucket_tagging_xml);
+		if (isset($opt['tags']) && is_array($opt['tags']))
+		{
+			foreach ($opt['tags'] as $key => $value)
+			{
+				$xtag = $xml->TagSet->addChild('Tag');
+				$xtag->addChild('Key', $key);
+				$xtag->addChild('Value', $value);
+			}
+		}
+
+		$opt['body'] = $xml->asXML();
+
+		// Authenticate to S3
+		return $this->authenticate($bucket, $opt);
+	}
+
+	/**
+	 * Retrieve all associated tags for the specified bucket.
+	 *
+	 * @param string $bucket (Required) The name of the bucket to use.
+	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
+	 * 	<li><code>curlopts</code> - <code>array</code> - Optional - A set of values to pass directly into <code>curl_setopt()</code>, where the key is a pre-defined <code>CURLOPT_*</code> constant.</li>
+	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
+	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
+	 */
+	public function get_bucket_tags($bucket, $opt = null)
+	{
+		if (!$opt) $opt = array();
+		$opt['verb'] = 'GET';
+		$opt['sub_resource'] = 'tagging';
+		$opt['headers'] = array(
+			'Content-Type' => 'application/xml'
+		);
+
+		// Authenticate to S3
+		return $this->authenticate($bucket, $opt);
+	}
+
+	/**
+	 * Delete all associated tags from the specified bucket.
+	 *
+	 * @param string $bucket (Required) The name of the bucket to use.
+	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
+	 * 	<li><code>curlopts</code> - <code>array</code> - Optional - A set of values to pass directly into <code>curl_setopt()</code>, where the key is a pre-defined <code>CURLOPT_*</code> constant.</li>
+	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
+	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
+	 */
+	public function delete_bucket_tags($bucket, $opt = null)
+	{
+		if (!$opt) $opt = array();
+		$opt['verb'] = 'DELETE';
+		$opt['sub_resource'] = 'tagging';
+
+		// Authenticate to S3
+		return $this->authenticate($bucket, $opt);
+	}
+
+
+	/*%******************************************************************************************%*/
+	// CROSS-ORIGIN RESOURCE SHARING (CORS)
+
+	/**
+	 * Create a new CORS configuration.
+	 *
+	 * @param string $bucket (Required) The name of the bucket to use.
+	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
+	 * 	<li><code>cors_rule</code> - <code>array</code> - Required - One or more rule-sets. <ul>
+	 * 		<li><code>x</code> - <code>array</code> - Required - This represents a simple array index. <ul>
+	 * 			<li><code>allowed_header</code> - <code>array</code> - Required - Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request.</li>
+	 * 			<li><code>allowed_method</code> - <code>array</code> - Required - An array of HTTP methods to allow. There must be at least one method set. [Allowed values: `GET`, `PUT`, `HEAD`, `POST`, `DELETE`]</li>
+	 * 			<li><code>allowed_origin</code> - <code>array</code> - Required - An array of hostnames to allow. This could be `*` to indicate it is open to all domains. If one of them contains the string `*`, then there can be exactly one.</li>
+	 * 			<li><code>expose_header</code> - <code>string</code> - Optional - Enable the browser to read this header.</li>
+	 * 			<li><code>id</code> - <code>string</code> - Optional - Unique identifier for the rule. The value cannot be longer than 255 characters.</li>
+	 * 			<li><code>max_age</code> - <code>integer</code> - Optional - Alter the client's caching behavior for the pre-flight request.</li>
+	 * 		</ul></li>
+	 * 	</ul></li>
+	 * 	<li><code>curlopts</code> - <code>array</code> - Optional - A set of values to pass directly into <code>curl_setopt()</code>, where the key is a pre-defined <code>CURLOPT_*</code> constant.</li>
+	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
+	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
+	 */
+	public function create_cors_config($bucket, $opt = null)
+	{
+		if (!$opt) $opt = array();
+		$opt['verb'] = 'PUT';
+		$opt['sub_resource'] = 'cors';
+		$opt['headers'] = array(
+			'Content-Type' => 'application/xml'
+		);
+
+		$xml = simplexml_load_string($this->cors_config_xml, $this->parser_class);
+
+		if (isset($opt['cors_rule']) && is_array($opt['cors_rule']))
+		{
+			foreach ($opt['cors_rule'] as $rule_set)
+			{
+				// New rule node
+				$xrule = $xml->addChild('CORSRule');
+
+				// Simple nodes
+				$xrule->addChild('AllowedHeader', $rule_set['allowed_header']);
+				$xrule->addChild('ExposeHeader', $rule_set['expose_header']);
+				$xrule->addChild('MaxAgeSec', $rule_set['max_age']);
+
+				// AllowedMethod node
+				if (!is_array($rule_set['allowed_method']))
+				{
+					$rule_set['allowed_method'] = array($rule_set['allowed_method']);
+				}
+
+				foreach ($rule_set['allowed_method'] as $method)
+				{
+					$xrule->addChild('AllowedMethod', $method);
+				}
+
+				// AllowedOrigin node
+				if (!is_array($rule_set['allowed_origin']))
+				{
+					$rule_set['allowed_origin'] = array($rule_set['allowed_origin']);
+				}
+
+				foreach ($rule_set['allowed_origin'] as $method)
+				{
+					$xrule->addChild('AllowedOrigin', $method);
+				}
+			}
+		}
+
+		$opt['body'] = $xml->asXML();
+
+		// Authenticate to S3
+		return $this->authenticate($bucket, $opt);
+	}
+
+	/**
+	 * Retrieves the CORS configuration.
+	 *
+	 * @param string $bucket (Required) The name of the bucket to use.
+	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
+	 * 	<li><code>curlopts</code> - <code>array</code> - Optional - A set of values to pass directly into <code>curl_setopt()</code>, where the key is a pre-defined <code>CURLOPT_*</code> constant.</li>
+	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
+	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
+	 */
+	public function get_cors_config($bucket, $opt = null)
+	{
+		if (!$opt) $opt = array();
+		$opt['verb'] = 'GET';
+		$opt['sub_resource'] = 'cors';
+
+		// Authenticate to S3
+		return $this->authenticate($bucket, $opt);
+	}
+
+	/**
+	 * Deletes the CORS configuration.
+	 *
+	 * @param string $bucket (Required) The name of the bucket to use.
+	 * @param array $opt (Optional) An associative array of parameters that can have the following keys: <ul>
+	 * 	<li><code>curlopts</code> - <code>array</code> - Optional - A set of values to pass directly into <code>curl_setopt()</code>, where the key is a pre-defined <code>CURLOPT_*</code> constant.</li>
+	 * 	<li><code>returnCurlHandle</code> - <code>boolean</code> - Optional - A private toggle specifying that the cURL handle be returned rather than actually completing the request. This toggle is useful for manually managed batch requests.</li></ul>
+	 * @return CFResponse A <CFResponse> object containing a parsed HTTP response.
+	 */
+	public function delete_cors_config($bucket, $opt = null)
+	{
+		if (!$opt) $opt = array();
+		$opt['verb'] = 'DELETE';
+		$opt['sub_resource'] = 'cors';
 
 		// Authenticate to S3
 		return $this->authenticate($bucket, $opt);
